@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo } from "../fetures/todo/todoSlice";
+import { removeTodo, updateTodo } from "../fetures/todo/todoSlice";
 
 const Todos = () => {
+  const [isTodoEditable, setIsTodoEditable] = useState(false);
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
@@ -16,9 +17,14 @@ const Todos = () => {
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded w-1/2"
+              className={`mt-4 flex justify-between bg-[#62c5e3] items-center  px-4 py-2 rounded w-2/3 ${
+                todo.completed ? "bg-[#62c5e3]" : " bg-[#39c239]"
+              } `}
+              
             >
-              <div className="text-white">{todo.text}</div>
+              <div className="text-[#000] font-semibold">
+                {todo.text}
+              </div>
               {/*  */}
 
               <button onClick={() => dispatch(removeTodo(todo.id))}>
